@@ -6,12 +6,12 @@ using Game.Prefabs;
 using Game.Buildings;
 using Game.Economy;
 
-namespace PostFixer;
+namespace PostalHelper;
 
 // The system will run before Game.Simulation.PostFacilityAISystem.PostFacilityTickJob
 // updateSystem.UpdateAt<PostFacilityAISystem>(SystemUpdatePhase.GameSimulation);
 
-public partial class PostFixerSystem : GameSystemBase
+public partial class PostalHelperSystem : GameSystemBase
 {
     private EntityQuery m_PostFacilitiesQuery;
 
@@ -47,7 +47,7 @@ public partial class PostFixerSystem : GameSystemBase
             },
         });
         RequireForUpdate(m_PostFacilitiesQuery);
-        Mod.log.Info("PostFixerSystem created.");
+        Mod.log.Info("PostalHelperSystem created.");
     }
 
     protected override void OnUpdate()
@@ -94,7 +94,7 @@ public partial class PostFixerSystem : GameSystemBase
         }
     }
 
-    public PostFixerSystem()
+    public PostalHelperSystem()
     {
     }
 }

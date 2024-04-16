@@ -4,7 +4,7 @@ using Game;
 using Game.Modding;
 using Game.SceneFlow;
 
-namespace PostFixer;
+namespace PostalHelper;
 
 public class Mod : IMod
 {
@@ -12,7 +12,7 @@ public class Mod : IMod
     public static Mod instance { get; private set; }
     public static ExecutableAsset modAsset { get; private set; }
     // logging
-    public static ILog log = LogManager.GetLogger($"{nameof(PostFixer)}").SetShowsErrorsInUI(false);
+    public static ILog log = LogManager.GetLogger($"{nameof(PostalHelper)}").SetShowsErrorsInUI(false);
 
     public void OnLoad(UpdateSystem updateSystem)
     {
@@ -25,7 +25,7 @@ public class Mod : IMod
         }
 
         // Run the system before simulation phase starts
-        updateSystem.UpdateBefore<PostFixerSystem>(SystemUpdatePhase.GameSimulation);
+        updateSystem.UpdateBefore<PostalHelperSystem>(SystemUpdatePhase.GameSimulation);
     }
 
     public void OnDispose()
