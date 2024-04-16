@@ -76,18 +76,18 @@ public partial class PostalHelperSystem : GameSystemBase
             if (postFacilityData.m_SortingRate == 0)
             {
                 // PostOffice
-                if (EconomyUtils.GetResources(Resource.LocalMail, resourcesBuffer) < 4000)
+                if (EconomyUtils.GetResources(Resource.LocalMail, resourcesBuffer) < 5000)
                 {
-                    EconomyUtils.AddResources(Resource.LocalMail, 4000, resourcesBuffer);
+                    EconomyUtils.AddResources(Resource.LocalMail, 10000, resourcesBuffer);
                     Mod.log.Info($"{postEntity}.LocalMail: {EconomyUtils.GetResources(Resource.LocalMail, resourcesBuffer)}");
                 }
             }
             else
             {
                 // PostSortingFacility
-                if (EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer) < 25000)
+                if (EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer) < 50000)
                 {
-                    EconomyUtils.AddResources(Resource.UnsortedMail, 25000, resourcesBuffer);
+                    EconomyUtils.AddResources(Resource.UnsortedMail, 50000, resourcesBuffer);
                     Mod.log.Info($"{postEntity}.UnsortedMail: {EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer)}");
                 }
             }
