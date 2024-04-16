@@ -1,10 +1,10 @@
 ﻿using Unity.Collections;
 using Unity.Entities;
+using Colossal.Entities;
 using Game;
 using Game.Prefabs;
 using Game.Buildings;
 using Game.Economy;
-using Colossal.Entities;
 
 namespace PostFixer;
 
@@ -38,7 +38,13 @@ public partial class PostFixerSystem : GameSystemBase
             ComponentType.ReadOnly<Game.Prefabs.PrefabRef>(),
             ComponentType.ReadOnly<Game.Buildings.PostFacility>(),
             ComponentType.ReadWrite<Game.Economy.Resources>(),
-            }
+            },
+            None = new ComponentType[3]
+            {
+                ComponentType.ReadOnly<Game.Common.Destroyed>(),
+                ComponentType.ReadOnly<Game.Common.Deleted>(),
+                ComponentType.ReadOnly<Game.Tools.Temp>(),
+            },
         });
         RequireForUpdate(m_PostFacilitiesQuery);
         Mod.log.Info("PostFixerSystem created.");
@@ -49,8 +55,6 @@ public partial class PostFixerSystem : GameSystemBase
         //Mod.log.Info($"OnUpdate: {m_PostFacilitiesQuery.CalculateEntityCount()} entities");
         foreach (Entity postEntity in m_PostFacilitiesQuery.ToEntityArray(Allocator.Temp))
         {
-            // Get Prefab and check if this is a Sorting facility
-
             if (!EntityManager.TryGetComponent<PrefabRef>(postEntity, out PrefabRef prefab))
             {
                 Mod.log.Warn($"Failed to retrieve PrefabRef for {postEntity}.");
@@ -61,28 +65,31 @@ public partial class PostFixerSystem : GameSystemBase
                 Mod.log.Warn($"Failed to retrieve PostFacilityData for {prefab}.");
                 continue;
             }
-#if DEBUG
-            Mod.log.Info($"{postEntity}.m_SortingRate: {postFacilityData.m_SortingRate}");
-#endif
-            if (postFacilityData.m_SortingRate == 0)
-            {
-                continue;
-            }
-
-            // Check UnsortedMail level and add if needed
-
             if (!EntityManager.TryGetBuffer<Resources>(postEntity, false, out DynamicBuffer<Resources> resourcesBuffer))
             {
                 Mod.log.Warn($"Failed to retrieve Resources buffer for {postEntity}.");
                 continue;
             }
 #if DEBUG
-            Mod.log.Info($"{postEntity}.Resources.UnsortedMail: {EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer)}");
+            Mod.log.Info($"{postEntity}: SortingRate {postFacilityData.m_SortingRate} UnsortedMail {EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer)} LocalMail {EconomyUtils.GetResources(Resource.LocalMail, resourcesBuffer)}");
 #endif
-            if (EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer) < 100000)
+            if (postFacilityData.m_SortingRate == 0)
             {
-                EconomyUtils.AddResources(Resource.UnsortedMail, 25000, resourcesBuffer);
-                Mod.log.Info($"{postEntity}.Resources.UnsortedMail: {EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer)}");
+                // PostOffice
+                if (EconomyUtils.GetResources(Resource.LocalMail, resourcesBuffer) < 4000)
+                {
+                    EconomyUtils.AddResources(Resource.LocalMail, 4000, resourcesBuffer);
+                    Mod.log.Info($"{postEntity}.LocalMail: {EconomyUtils.GetResources(Resource.LocalMail, resourcesBuffer)}");
+                }
+            }
+            else
+            {
+                // PostSortingFacility
+                if (EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer) < 25000)
+                {
+                    EconomyUtils.AddResources(Resource.UnsortedMail, 25000, resourcesBuffer);
+                    Mod.log.Info($"{postEntity}.UnsortedMail: {EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer)}");
+                }
             }
         }
     }
