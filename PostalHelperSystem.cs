@@ -80,6 +80,12 @@ public partial class PostalHelperSystem : GameSystemBase
                 {
                     EconomyUtils.AddResources(Resource.LocalMail, 10000, resourcesBuffer);
                     Mod.log.Info($"{postEntity}.LocalMail: {EconomyUtils.GetResources(Resource.LocalMail, resourcesBuffer)}");
+                    // 240417 Overflow fix
+                    if (EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer) > 50000)
+                    {
+                        EconomyUtils.AddResources(Resource.UnsortedMail, -10000, resourcesBuffer);
+                        Mod.log.Info($"{postEntity}.UnsortedMail: {EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer)}");
+                    }
                 }
             }
             else
