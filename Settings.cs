@@ -123,7 +123,7 @@ public class Setting : ModSetting
 
 	public override void SetDefaults()
 	{
-		PO_GetLocalMails = true;
+		PO_GetLocalMails = false;
 		PO_TriggerPercentage = 2;
 		PO_GettingPercentage = 20;
 		PO_DisposeOverflow = true;
