@@ -34,7 +34,7 @@ public class LocaleJA : IDictionarySource
 			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PO_TriggerPercentage)), "市内郵便の残量が郵便局の容量のこのパーセンテージ以下になったときに市内郵便を取得します。" },
 			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PO_GettingPercentage)), "市内郵便を受け取る量を郵便局の容量のパーセンテージで指定します。" },
 			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PO_DisposeOverflow)), "郵便物の残量が設定値以上になる場合にそれ以上を廃棄する機能を有効にします。" },
-			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PO_OverflowPercentage)), "郵便物の残量が郵便局の容量のこのパーセンテージ以下だった場合にそれ以上の郵便物を廃棄します。" },
+			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PO_OverflowPercentage)), "郵便物の残量が郵便局の容量のこのパーセンテージ以上になったときに溢れた分の郵便物を廃棄します。" },
 
 			{ m_Setting.GetOptionLabelLocaleID(nameof(Setting.PSF_GetUnsortedMails)), "未分類郵便を取得する" },
 			{ m_Setting.GetOptionLabelLocaleID(nameof(Setting.PSF_TriggerPercentage)), "取得しきい値" },
@@ -46,7 +46,7 @@ public class LocaleJA : IDictionarySource
 			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_TriggerPercentage)), "未分類郵便の残量が郵便物仕分け施設の容量のこのパーセンテージ以下になったときに未分類郵便を取得します。" },
 			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_GettingPercentage)), "未分類郵便を受け取る量を郵便物仕分け施設の容量のパーセンテージで指定します。" },
 			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_DisposeOverflow)), "郵便物の残量が設定値以上になる場合にそれ以上を廃棄する機能を有効にします。" },
-			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_OverflowPercentage)), "郵便物の残量が郵便物仕分け施設の容量のこのパーセンテージ以下だった場合にそれ以上の郵便物を廃棄します。" },
+			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_OverflowPercentage)), "郵便物の残量が郵便物仕分け施設の容量のこのパーセンテージ以上になったときに溢れた分の郵便物を廃棄します。" },
 
 			{ m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToVanilla)), "バニラの設定値にする" },
 			{ m_Setting.GetOptionLabelLocaleID(nameof(Setting.ResetToRecommend)), "推奨設定値にする" },
