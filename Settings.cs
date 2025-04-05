@@ -75,7 +75,7 @@ public class Setting : ModSetting
 	[SettingsUISection(MainSection, PostSortingFacilityGroup)]
 	[SettingsUISlider(min = 0, max = 100, step = 1, scalarMultiplier = 1, unit = Unit.kPercentage)]
 	[SettingsUIDisableByCondition(typeof(Setting), nameof(PSF_GetUnsortedMails), true)]
-	public int PSF_GettingAmount { get; set; }
+	public int PSF_GettingPercentage { get; set; }
 
 
 	[SettingsUISection(MainSection, PostSortingFacilityGroup)]
@@ -131,7 +131,7 @@ public class Setting : ModSetting
 
 		PSF_GetUnsortedMails = true;
 		PSF_TriggerPercentage = 2;
-		PSF_GettingAmount = 20;
+		PSF_GettingPercentage = 20;
 		PSF_DisposeOverflow = true;
 		PSF_OverflowPercentage = 80;
 	}
@@ -146,7 +146,7 @@ public class Setting : ModSetting
 
 		PSF_GetUnsortedMails = false;
 		PSF_TriggerPercentage = 2;
-		PSF_GettingAmount = 20;
+		PSF_GettingPercentage = 20;
 		PSF_DisposeOverflow = false;
 		PSF_OverflowPercentage = 80;
 	}

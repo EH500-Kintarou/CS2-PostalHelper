@@ -38,13 +38,13 @@ public class LocaleEN : IDictionarySource
 
 			{ m_Setting.GetOptionLabelLocaleID(nameof(Setting.PSF_GetUnsortedMails)), "Get unsorted mails" },
 			{ m_Setting.GetOptionLabelLocaleID(nameof(Setting.PSF_TriggerPercentage)), "Threshold of getting" },
-			{ m_Setting.GetOptionLabelLocaleID(nameof(Setting.PSF_GettingAmount)), "Getting amount" },
+			{ m_Setting.GetOptionLabelLocaleID(nameof(Setting.PSF_GettingPercentage)), "Getting amount" },
 			{ m_Setting.GetOptionLabelLocaleID(nameof(Setting.PSF_DisposeOverflow)), "Dispose overflow" },
 			{ m_Setting.GetOptionLabelLocaleID(nameof(Setting.PSF_OverflowPercentage)), "Overflow amount" },
 
 			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_GetUnsortedMails)), "Activate getting unsorted mails when remaining is equal or less than the specified percentage of full capacity." },
 			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_TriggerPercentage)), "When the remaining amaount percentage of full capacity is equal or less than this, the spcified amount of unsorted mails will be gotten." },
-			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_GettingAmount)), "When getting unsorted mails, the amount will be this of the full capacity." },
+			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_GettingPercentage)), "When getting unsorted mails, the amount will be this of the full capacity." },
 			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_DisposeOverflow)), "Activate disposing mails when amount is equal or more than the specified percentage of full capacity." },
 			{ m_Setting.GetOptionDescLocaleID(nameof(Setting.PSF_OverflowPercentage)), "When mails is equal or more than this amount of full capacity, cut off to this amount." },
 
