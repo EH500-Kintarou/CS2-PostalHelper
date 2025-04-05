@@ -3,6 +3,7 @@ using Colossal.IO.AssetDatabase;
 using Game;
 using Game.Modding;
 using Game.SceneFlow;
+using Game.Settings;
 
 namespace PostalHelper;
 
@@ -13,8 +14,10 @@ public class Mod : IMod
     public static ExecutableAsset modAsset { get; private set; }
     // logging
     public static ILog log = LogManager.GetLogger($"{nameof(PostalHelper)}").SetShowsErrorsInUI(false);
+	// settings
+	public static Setting m_Setting;
 
-    public void OnLoad(UpdateSystem updateSystem)
+	public void OnLoad(UpdateSystem updateSystem)
     {
         log.Info(nameof(OnLoad));
 
@@ -24,8 +27,15 @@ public class Mod : IMod
             modAsset = asset;
         }
 
-        // Run the system before simulation phase starts
-        updateSystem.UpdateBefore<PostalHelperSystem>(SystemUpdatePhase.GameSimulation);
+		m_Setting = new Setting(this);
+		m_Setting.RegisterInOptionsUI();
+		GameManager.instance.localizationManager.AddSource("en-US", new LocaleEN(m_Setting));
+		GameManager.instance.localizationManager.AddSource("ja-JP", new LocaleJA(m_Setting));
+
+		AssetDatabase.global.LoadSettings(nameof(PostalHelper), m_Setting, new Setting(this));
+
+		// Run the system before simulation phase starts
+		updateSystem.UpdateBefore<PostalHelperSystem>(SystemUpdatePhase.GameSimulation);
     }
 
     public void OnDispose()
