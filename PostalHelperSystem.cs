@@ -97,14 +97,14 @@ public partial class PostalHelperSystem : GameSystemBase
 				if(Mod.m_Setting.PO_DisposeOverflow && allMailCount * 100 / mailCapacity >= Mod.m_Setting.PO_OverflowPercentage) {
                     var removalRate = (double)allMailCount / mailCapacity - Mod.m_Setting.PO_OverflowPercentage / 100.0;
 
-					EconomyUtils.AddResources(Resource.LocalMail, (int)(-localMailCount * removalRate), resourcesBuffer);
-					EconomyUtils.AddResources(Resource.OutgoingMail, (int)(-outgoingMailCount * removalRate), resourcesBuffer);
-					EconomyUtils.AddResources(Resource.UnsortedMail, (int)(-unsortedMailCount * removalRate), resourcesBuffer);
-
-					var old = allMailCount;
 					EconomyUtils.AddResources(Resource.LocalMail, -1 * (int)Math.Ceiling(localMailCount * removalRate), resourcesBuffer);
 					EconomyUtils.AddResources(Resource.OutgoingMail, -1 * (int)Math.Ceiling(outgoingMailCount * removalRate), resourcesBuffer);
 					EconomyUtils.AddResources(Resource.UnsortedMail, -1 * (int)Math.Ceiling(unsortedMailCount * removalRate), resourcesBuffer);
+
+					var old = allMailCount;
+					localMailCount = EconomyUtils.GetResources(Resource.LocalMail, resourcesBuffer);
+					outgoingMailCount = EconomyUtils.GetResources(Resource.OutgoingMail, resourcesBuffer);
+					unsortedMailCount = EconomyUtils.GetResources(Resource.UnsortedMail, resourcesBuffer);
 					allMailCount = localMailCount + outgoingMailCount + unsortedMailCount;
 
 					Mod.log.Info($"Overflow: {postEntity}.All: {old} -> {allMailCount}");
