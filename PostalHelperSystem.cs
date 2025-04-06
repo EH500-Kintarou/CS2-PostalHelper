@@ -94,12 +94,12 @@ public partial class PostalHelperSystem : GameSystemBase
 
 					Mod.log.Info($"Get: {postEntity}.LocalMail: {old} -> {localMailCount}");
 				}
-				if(Mod.m_Setting.PO_DisposeOverflow && allMailCount * 100 / mailCapacity >= Mod.m_Setting.PO_OverflowPercentage) {
-                    var removalRate = (double)allMailCount / mailCapacity - Mod.m_Setting.PO_OverflowPercentage / 100.0;
 
-					EconomyUtils.AddResources(Resource.LocalMail, -1 * (int)Math.Ceiling(localMailCount * removalRate), resourcesBuffer);
-					EconomyUtils.AddResources(Resource.OutgoingMail, -1 * (int)Math.Ceiling(outgoingMailCount * removalRate), resourcesBuffer);
-					EconomyUtils.AddResources(Resource.UnsortedMail, -1 * (int)Math.Ceiling(unsortedMailCount * removalRate), resourcesBuffer);
+                var overflowRatio = Mod.m_Setting.PO_OverflowPercentage / 100.0;
+				if(Mod.m_Setting.PO_DisposeOverflow && (double)allMailCount / mailCapacity >= overflowRatio) {
+					EconomyUtils.AddResources(Resource.LocalMail, (int)(overflowRatio * localMailCount / allMailCount * mailCapacity) - localMailCount, resourcesBuffer);
+					EconomyUtils.AddResources(Resource.OutgoingMail, (int)(overflowRatio * outgoingMailCount / allMailCount * mailCapacity) - outgoingMailCount, resourcesBuffer);
+					EconomyUtils.AddResources(Resource.UnsortedMail, (int)(overflowRatio * unsortedMailCount / allMailCount * mailCapacity) - unsortedMailCount, resourcesBuffer);
 
 					var old = allMailCount;
 					localMailCount = EconomyUtils.GetResources(Resource.LocalMail, resourcesBuffer);
@@ -119,12 +119,12 @@ public partial class PostalHelperSystem : GameSystemBase
 
 					Mod.log.Info($"Get: {postEntity}.UnsortedMail: {old} -> {unsortedMailCount}");
 				}
-				if(Mod.m_Setting.PSF_DisposeOverflow && allMailCount * 100 / mailCapacity >= Mod.m_Setting.PSF_OverflowPercentage) {
-					var removalRate = (double)allMailCount / mailCapacity - Mod.m_Setting.PSF_OverflowPercentage / 100.0;
 
-					EconomyUtils.AddResources(Resource.LocalMail, -1 * (int)Math.Ceiling(localMailCount * removalRate), resourcesBuffer);
-					EconomyUtils.AddResources(Resource.OutgoingMail, -1 * (int)Math.Ceiling(outgoingMailCount * removalRate), resourcesBuffer);
-					EconomyUtils.AddResources(Resource.UnsortedMail, -1 * (int)Math.Ceiling(unsortedMailCount * removalRate), resourcesBuffer);
+				var overflowRatio = Mod.m_Setting.PSF_OverflowPercentage / 100.0;
+				if(Mod.m_Setting.PSF_DisposeOverflow && (double)allMailCount / mailCapacity >= overflowRatio) {
+					EconomyUtils.AddResources(Resource.LocalMail, (int)(overflowRatio * localMailCount / allMailCount * mailCapacity) - localMailCount, resourcesBuffer);
+					EconomyUtils.AddResources(Resource.OutgoingMail, (int)(overflowRatio * outgoingMailCount / allMailCount * mailCapacity) - outgoingMailCount, resourcesBuffer);
+					EconomyUtils.AddResources(Resource.UnsortedMail, (int)(overflowRatio * unsortedMailCount / allMailCount * mailCapacity) - unsortedMailCount, resourcesBuffer);
 
 					var old = allMailCount;
 					localMailCount = EconomyUtils.GetResources(Resource.LocalMail, resourcesBuffer);
