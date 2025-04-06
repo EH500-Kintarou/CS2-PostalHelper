@@ -84,8 +84,9 @@ public partial class PostalHelperSystem : GameSystemBase
 			Mod.log.Info($"{postEntity}: SortingRate {sortingRate}, Capacity {mailCapacity}, TotalMail: {allMailCount}, UnsortedMail {unsortedMailCount}, LocalMail {localMailCount}, OutgoingMail {outgoingMailCount}");
 #endif
 
-            if(sortingRate == 0) {  // 郵便局
-				if(Mod.m_Setting.PO_GetLocalMails && localMailCount * 100 / mailCapacity <= Mod.m_Setting.PO_TriggerPercentage) {
+            if(sortingRate == 0) {  // Post Office
+                // Get local mail if needed
+				if(Mod.m_Setting.PO_GetLocalMail && localMailCount * 100 / mailCapacity <= Mod.m_Setting.PO_GettingThresholdPercentage) {
 					EconomyUtils.AddResources(Resource.LocalMail, mailCapacity * Mod.m_Setting.PO_GettingPercentage / 100, resourcesBuffer);
 
 					var old = localMailCount;
@@ -95,6 +96,7 @@ public partial class PostalHelperSystem : GameSystemBase
 					Mod.log.Info($"Get: {postEntity}.LocalMail: {old} -> {localMailCount}");
 				}
 
+                // Dispose overflow mail if needed
                 var overflowRatio = Mod.m_Setting.PO_OverflowPercentage / 100.0;
 				if(Mod.m_Setting.PO_DisposeOverflow && (double)allMailCount / mailCapacity >= overflowRatio) {
 					EconomyUtils.AddResources(Resource.LocalMail, (int)(overflowRatio * localMailCount / allMailCount * mailCapacity) - localMailCount, resourcesBuffer);
@@ -109,8 +111,9 @@ public partial class PostalHelperSystem : GameSystemBase
 
 					Mod.log.Info($"Overflow: {postEntity}.All: {old} -> {allMailCount}");
 				}
-			} else {    // 郵便物仕分け施設
-				if(Mod.m_Setting.PSF_GetUnsortedMails && unsortedMailCount * 100 / mailCapacity <= Mod.m_Setting.PSF_TriggerPercentage) {
+			} else {    // Post Sorting Facility
+				// Get unsorted mail if needed
+				if(Mod.m_Setting.PSF_GetUnsortedMail && unsortedMailCount * 100 / mailCapacity <= Mod.m_Setting.PSF_GettingThresholdPercentage) {
 					EconomyUtils.AddResources(Resource.UnsortedMail, mailCapacity * Mod.m_Setting.PSF_GettingPercentage / 100, resourcesBuffer);
 
 					var old = unsortedMailCount;
@@ -120,6 +123,7 @@ public partial class PostalHelperSystem : GameSystemBase
 					Mod.log.Info($"Get: {postEntity}.UnsortedMail: {old} -> {unsortedMailCount}");
 				}
 
+				// Dispose overflow mail if needed
 				var overflowRatio = Mod.m_Setting.PSF_OverflowPercentage / 100.0;
 				if(Mod.m_Setting.PSF_DisposeOverflow && (double)allMailCount / mailCapacity >= overflowRatio) {
 					EconomyUtils.AddResources(Resource.LocalMail, (int)(overflowRatio * localMailCount / allMailCount * mailCapacity) - localMailCount, resourcesBuffer);

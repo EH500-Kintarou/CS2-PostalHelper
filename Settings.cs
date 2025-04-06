@@ -39,16 +39,16 @@ public class Setting : ModSetting
 	#region Post Office
 
 	[SettingsUISection(MainSection, PostOfficeGroup)]
-	public bool PO_GetLocalMails { get; set; }
+	public bool PO_GetLocalMail { get; set; }
 
 	[SettingsUISection(MainSection, PostOfficeGroup)]
 	[SettingsUISlider(min = 0, max = 100, step = 1, scalarMultiplier = 1, unit = Unit.kPercentage)]
-	[SettingsUIDisableByCondition(typeof(Setting), nameof(PO_GetLocalMails), true)]
-	public int PO_TriggerPercentage { get; set; }
+	[SettingsUIDisableByCondition(typeof(Setting), nameof(PO_GetLocalMail), true)]
+	public int PO_GettingThresholdPercentage { get; set; }
 
 	[SettingsUISection(MainSection, PostOfficeGroup)]
 	[SettingsUISlider(min = 0, max = 100, step = 1, scalarMultiplier = 1, unit = Unit.kPercentage)]
-	[SettingsUIDisableByCondition(typeof(Setting), nameof(PO_GetLocalMails), true)]
+	[SettingsUIDisableByCondition(typeof(Setting), nameof(PO_GetLocalMail), true)]
 	public int PO_GettingPercentage { get; set; }
 
 
@@ -65,16 +65,16 @@ public class Setting : ModSetting
 	#region Post Sorting Facility
 
 	[SettingsUISection(MainSection, PostSortingFacilityGroup)]
-	public bool PSF_GetUnsortedMails { get; set; }
+	public bool PSF_GetUnsortedMail { get; set; }
 
 	[SettingsUISection(MainSection, PostSortingFacilityGroup)]
 	[SettingsUISlider(min = 0, max = 100, step = 1, scalarMultiplier = 1, unit = Unit.kPercentage)]
-	[SettingsUIDisableByCondition(typeof(Setting), nameof(PSF_GetUnsortedMails), true)]
-	public int PSF_TriggerPercentage { get; set; }
+	[SettingsUIDisableByCondition(typeof(Setting), nameof(PSF_GetUnsortedMail), true)]
+	public int PSF_GettingThresholdPercentage { get; set; }
 
 	[SettingsUISection(MainSection, PostSortingFacilityGroup)]
 	[SettingsUISlider(min = 0, max = 100, step = 1, scalarMultiplier = 1, unit = Unit.kPercentage)]
-	[SettingsUIDisableByCondition(typeof(Setting), nameof(PSF_GetUnsortedMails), true)]
+	[SettingsUIDisableByCondition(typeof(Setting), nameof(PSF_GetUnsortedMail), true)]
 	public int PSF_GettingPercentage { get; set; }
 
 
@@ -123,14 +123,14 @@ public class Setting : ModSetting
 
 	public override void SetDefaults()
 	{
-		PO_GetLocalMails = false;
-		PO_TriggerPercentage = 2;
+		PO_GetLocalMail = false;
+		PO_GettingThresholdPercentage = 2;
 		PO_GettingPercentage = 20;
 		PO_DisposeOverflow = true;
 		PO_OverflowPercentage = 80;
 
-		PSF_GetUnsortedMails = true;
-		PSF_TriggerPercentage = 2;
+		PSF_GetUnsortedMail = true;
+		PSF_GettingThresholdPercentage = 2;
 		PSF_GettingPercentage = 20;
 		PSF_DisposeOverflow = true;
 		PSF_OverflowPercentage = 80;
@@ -138,14 +138,14 @@ public class Setting : ModSetting
 
 	public void SetToVanilla()
 	{
-		PO_GetLocalMails = false;
-		PO_TriggerPercentage = 2;
+		PO_GetLocalMail = false;
+		PO_GettingThresholdPercentage = 2;
 		PO_GettingPercentage = 20;
 		PO_DisposeOverflow = false;
 		PO_OverflowPercentage = 80;
 
-		PSF_GetUnsortedMails = false;
-		PSF_TriggerPercentage = 2;
+		PSF_GetUnsortedMail = false;
+		PSF_GettingThresholdPercentage = 2;
 		PSF_GettingPercentage = 20;
 		PSF_DisposeOverflow = false;
 		PSF_OverflowPercentage = 80;
